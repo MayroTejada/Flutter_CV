@@ -1,0 +1,22 @@
+{
+  "configurations": [
+    {
+      "name": "DEV",
+      "program": "lib/main.dart",
+      "request": "launch",
+      "flutterMode": "debug",
+      "type": "dart",
+      "args": [
+        "--target",
+        "lib/main.dart",
+        "--web-browser-flag=--disable-web-security"
+      ],
+      "codeLens": {
+        "for": [
+          "run-test",
+          "run-test-file"
+        ]
+      },
+    },
+  ]
+}
