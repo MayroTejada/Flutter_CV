@@ -29,7 +29,6 @@ class _AppBarContentState extends State<AppBarContent> {
               .toList(),
           ElevatedButton(
             onPressed: () {},
-            style: const ButtonStyle(),
             child: const Padding(
               padding: EdgeInsets.all(8.0),
               child: Text(

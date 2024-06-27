@@ -8,23 +8,34 @@ class ImMarioTejadaBody extends StatefulWidget {
 }
 
 class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
-    with SingleTickerProviderStateMixin {
+    with TickerProviderStateMixin {
   late AnimationController animationController;
+  double opacity = 0.0;
   late Animation<double> movePositionAxis;
+
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     animationController = AnimationController(
       duration: const Duration(milliseconds: 500),
       vsync: this,
     );
+
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      animationOpacity();
+    });
     movePositionAxis =
         Tween<double>(begin: 0, end: 40).animate(animationController)
           ..addListener(() {
             setState(() {});
           });
     animationController.repeat(reverse: true);
+  }
+
+  animationOpacity() {
+    setState(() {
+      opacity = 1;
+    });
   }
 
   @override
@@ -34,15 +45,49 @@ class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
       child: Flex(
         direction: Axis.horizontal,
         children: [
-          const Flexible(flex: 1, child: Placeholder()),
+          Flexible(
+              flex: 1,
+              child: Center(
+                child: AnimatedOpacity(
+                  opacity: opacity,
+                  duration: const Duration(seconds: 1),
+                  child: RichText(
+                    text: TextSpan(
+                        text: 'Hi! I am \n',
+                        style: const TextStyle(fontSize: 50),
+                        children: [
+                          TextSpan(
+                              text: 'Mario Tejada',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor)),
+                          TextSpan(
+                              text: ' ',
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor)),
+                          WidgetSpan(
+                              style: const TextStyle(fontSize: 40),
+                              child: Icon(
+                                Icons.android,
+                                color: Theme.of(context).primaryColor,
+                                size: 40,
+                              ),
+                              alignment: PlaceholderAlignment.bottom)
+                        ]),
+                  ),
+                ),
+              )),
           Flexible(
               flex: 1,
               child: Stack(
                 children: [
                   Positioned.fill(
-                      child: Image.asset(
-                    'assets/images/mario_profile.png',
-                    fit: BoxFit.contain,
+                      child: AnimatedOpacity(
+                    duration: const Duration(seconds: 1),
+                    opacity: opacity,
+                    child: Image.asset(
+                      'assets/images/mario_profile.png',
+                      fit: BoxFit.contain,
+                    ),
                   )),
                   AnimatedPositioned(
                       curve: Curves.bounceIn,
