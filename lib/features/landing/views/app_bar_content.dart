@@ -26,8 +26,9 @@ class _AppBarContentState extends State<AppBarContent> {
     return ResponsiveLayout(
       isSliver: true,
       childMobile: SliverAppBar(
-        forceMaterialTransparency: true,
-        elevation: 1,
+        snap: true,
+        elevation: 3,
+        forceElevated: true,
         floating: true,
         pinned: true,
         leading: Builder(

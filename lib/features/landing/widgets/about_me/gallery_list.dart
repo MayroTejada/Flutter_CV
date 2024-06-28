@@ -22,76 +22,98 @@ class GalleryItem {
 }
 
 class _GalleryListState extends State<GalleryList> {
-  final AutoScrollController scrollController = AutoScrollController();
+  final AutoScrollController scrollController = AutoScrollController(
+    axis: Axis.horizontal,
+  );
+  int currentIndex = 0;
+  @override
+  void initState() {
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return ConstrainedBox(
       constraints: const BoxConstraints(maxHeight: 500, minHeight: 300),
       child: ResponsiveLayout(
-        childMobile: Stack(children: [
+        childMobile: Stack(alignment: Alignment.center, children: [
           Positioned(
             bottom: 1,
             top: 1,
             right: 1,
             left: 1,
-            child: GridView(
+            child: GridView.builder(
               controller: scrollController,
               clipBehavior: Clip.antiAliasWithSaveLayer,
               scrollDirection: Axis.horizontal,
               semanticChildCount: 1,
-              physics: const AlwaysScrollableScrollPhysics(),
+              physics: const BouncingScrollPhysics(),
               shrinkWrap: true,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: 1 * 1.5, crossAxisCount: 1),
-              children: [
-                ...widget.items
-                    .map((e) => ImageGallery(
-                        title: SizedBox(
-                          height: 80,
-                          child: Center(
-                            child: Text(
-                              textAlign: TextAlign.center,
-                              e.title,
-                              style: const TextStyle(
-                                  fontSize: 20, fontWeight: FontWeight.bold),
-                            ),
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 1,
+                  mainAxisSpacing: 20,
+                  mainAxisExtent: MediaQuery.of(context).size.width),
+              itemCount: widget.items.length,
+              itemBuilder: (context, index) => AutoScrollTag(
+                controller: scrollController,
+                index: index,
+                key: ValueKey(index),
+                child: GestureDetector(
+                  onTap: () {
+                    currentIndex = index;
+                    scrollController.scrollToIndex(index);
+                  },
+                  child: ImageGallery(
+                      title: SizedBox(
+                        height: 80,
+                        child: Center(
+                          child: Text(
+                            textAlign: TextAlign.center,
+                            widget.items.elementAt(index).title,
+                            style: const TextStyle(
+                                fontSize: 20, fontWeight: FontWeight.bold),
                           ),
                         ),
-                        description: SizedBox(
-                          height: 80,
-                          child: Text(
-                              textAlign: TextAlign.center,
-                              style: const TextStyle(fontSize: 18),
-                              e.description),
-                        ),
-                        image: e.image))
-                    .toList()
-              ],
+                      ),
+                      description: SizedBox(
+                        height: 80,
+                        child: Text(
+                            textAlign: TextAlign.center,
+                            style: const TextStyle(fontSize: 18),
+                            widget.items.elementAt(index).description),
+                      ),
+                      image: widget.items.elementAt(index).image),
+                ),
+              ),
             ),
           ),
           Positioned(
-              bottom: 1,
-              top: 1,
-              child: IconButton(
-                  onPressed: () {
-                    scrollController.animateTo(
-                        scrollController.position.pixels - 100,
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.linear);
-                  },
-                  icon: const Icon(Icons.arrow_left))),
+              left: 1,
+              height: 60,
+              child: Card(
+                child: IconButton(
+                    onPressed: () {
+                      if (currentIndex >= 0) {
+                        scrollController
+                            .scrollToIndex(currentIndex = currentIndex - 1);
+                      }
+                    },
+                    icon: const Icon(Icons.arrow_left)),
+              )),
           Positioned(
               right: 1,
-              bottom: 1,
-              top: 1,
-              child: IconButton(
-                  onPressed: () {
-                    scrollController.animateTo(
-                        scrollController.position.pixels + 100,
-                        duration: const Duration(milliseconds: 400),
-                        curve: Curves.linear);
-                  },
-                  icon: const Icon(Icons.arrow_right))),
+              height: 60,
+              child: Card(
+                child: IconButton(
+                    color: Theme.of(context).primaryColor,
+                    onPressed: () {
+                      if (currentIndex < widget.items.length) {
+                        scrollController
+                            .scrollToIndex(currentIndex = currentIndex + 1);
+                      }
+                    },
+                    icon: const Icon(Icons.arrow_right)),
+              )),
         ]),
         childDesktop: GridView(
           semanticChildCount: 5,
