@@ -3,8 +3,12 @@ import 'package:flutter/material.dart';
 class LinkButton extends StatefulWidget {
   final String text;
   final TextStyle style;
+  final Function()? onCallback;
   const LinkButton(
-      {super.key, required this.text, this.style = const TextStyle()});
+      {super.key,
+      required this.text,
+      this.style = const TextStyle(),
+      this.onCallback});
 
   @override
   State<LinkButton> createState() => _LinkButtonState();
@@ -20,7 +24,7 @@ class _LinkButtonState extends State<LinkButton> {
             isHover = value;
           });
         },
-        onPressed: () {},
+        onPressed: widget.onCallback,
         child: Text(widget.text,
             style: widget.style.copyWith(
                 decoration:

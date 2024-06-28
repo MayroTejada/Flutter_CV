@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
+import 'package:my_resume_app/features/landing/views/about_me_section.dart';
+import 'package:my_resume_app/features/landing/views/welcome_section.dart';
 import 'package:my_resume_app/features/landing/widgets/app_bar_content.dart';
-import 'package:my_resume_app/features/landing/widgets/social_media_icon_list.dart';
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 import '../../../core/widgets/app_bar/sliver_app_bar.dart';
-import '../widgets/im_mario_body.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -14,35 +14,62 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+  final GlobalKey _keyAboutMeSection =
+      GlobalKey(debugLabel: 'section_about_me');
+  final AutoScrollController _scrollController = AutoScrollController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          SliverPersistentHeader(
-              delegate: SliverAppBarDelegate(
-                  child: const AppBarContent(), maxHeight: 100, minHeight: 80)),
-          const SliverToBoxAdapter(
-            child: Column(
-              children: [
-                ImMarioTejadaBody(),
-                Gap(15),
-                Flex(
-                  direction: Axis.horizontal,
-                  children: [
-                    Expanded(
-                      child: Center(child: SocialMediaIconList()),
+      body: Stack(
+        children: [
+          Positioned.fill(
+            child: CustomScrollView(
+              physics: const BouncingScrollPhysics(),
+              shrinkWrap: true,
+              controller: _scrollController,
+              slivers: [
+                SliverPersistentHeader(
+                    pinned: true,
+                    floating: true,
+                    delegate: SliverAppBarDelegate(
+                        child: AppBarContent(
+                          categoryKeys: const {
+                            'home': ValueKey(0),
+                            'About_me': ValueKey(1)
+                          },
+                          scrollController: _scrollController,
+                        ),
+                        maxHeight: 130,
+                        minHeight: 80)),
+                SliverToBoxAdapter(
+                  child: AutoScrollTag(
+                      key: const ValueKey(0),
+                      controller: _scrollController,
+                      index: 0,
+                      child: const WelcomeSection()),
+                ),
+                SliverToBoxAdapter(
+                  child: AutoScrollTag(
+                    key: const ValueKey(1),
+                    controller: _scrollController,
+                    index: 1,
+                    child: AboutMeSection(
+                      key: _keyAboutMeSection,
                     ),
-                    Expanded(
-                        child: Text(
-                            style: TextStyle(fontSize: 24),
-                            textAlign: TextAlign.center,
-                            '“Code never lies, comments sometimes do.”\n-Ron Jeffries'))
-                  ],
-                )
+                  ),
+                ),
               ],
             ),
-          )
+          ),
+          AnimatedPositioned(
+              bottom: 50,
+              left: MediaQuery.of(context).size.width / 12,
+              duration: const Duration(milliseconds: 400),
+              child: IconButton(
+                  iconSize: 36,
+                  color: Theme.of(context).primaryColor,
+                  onPressed: () {},
+                  icon: const Icon(Icons.arrow_downward))),
         ],
       ),
     );
