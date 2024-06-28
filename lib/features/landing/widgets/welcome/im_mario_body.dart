@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume_app/core/responsive/responsive_layout.dart';
 
 class ImMarioTejadaBody extends StatefulWidget {
   const ImMarioTejadaBody({super.key});
@@ -40,86 +41,171 @@ class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 500,
-      child: Flex(
-        direction: Axis.horizontal,
-        children: [
-          Flexible(
-              flex: 1,
-              child: Center(
-                child: AnimatedOpacity(
-                  opacity: opacity,
-                  duration: const Duration(seconds: 1),
-                  child: RichText(
-                    text: TextSpan(
-                        text: 'Hi! I am \n',
-                        style: const TextStyle(fontSize: 50),
-                        children: [
-                          TextSpan(
-                              text: 'Mario Tejada',
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor)),
-                          TextSpan(
-                              text: ' ',
-                              style: TextStyle(
-                                  color: Theme.of(context).primaryColor)),
-                          WidgetSpan(
-                              style: const TextStyle(fontSize: 40),
-                              child: Icon(
-                                Icons.android,
-                                color: Theme.of(context).primaryColor,
-                                size: 40,
-                              ),
-                              alignment: PlaceholderAlignment.bottom)
-                        ]),
-                  ),
-                ),
-              )),
-          Flexible(
-              flex: 1,
-              child: Stack(
-                children: [
-                  Positioned.fill(
-                      child: AnimatedOpacity(
-                    duration: const Duration(seconds: 1),
+    Size screenSize = MediaQuery.of(context).size;
+    return ResponsiveLayout(
+      childMobile: SizedBox(
+        height: 500,
+        child: Flex(
+          direction: Axis.vertical,
+          children: [
+            Flexible(
+                flex: 1,
+                child: Center(
+                  child: AnimatedOpacity(
                     opacity: opacity,
-                    child: Image.asset(
-                      'assets/images/mario_profile.png',
-                      fit: BoxFit.contain,
+                    duration: const Duration(seconds: 1),
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'Hi! I am \n',
+                          style: const TextStyle(fontSize: 50),
+                          children: [
+                            TextSpan(
+                                text: 'Mario Tejada',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                            TextSpan(
+                                text: ' ',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                            WidgetSpan(
+                                style: const TextStyle(fontSize: 40),
+                                child: Icon(
+                                  Icons.android,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 40,
+                                ),
+                                alignment: PlaceholderAlignment.bottom)
+                          ]),
                     ),
-                  )),
-                  AnimatedPositioned(
-                      curve: Curves.bounceIn,
-                      duration: const Duration(milliseconds: 500),
-                      top: 30 + movePositionAxis.value,
-                      left: 30,
-                      height: 80,
-                      child: Image.asset('assets/images/swift_ui.png')),
-                  AnimatedPositioned(
-                      curve: Curves.bounceIn,
-                      duration: const Duration(milliseconds: 500),
-                      bottom: 5 + movePositionAxis.value,
-                      left: 30,
-                      height: 80,
-                      child: Image.asset('assets/images/react_icon.png')),
-                  AnimatedPositioned(
-                      curve: Curves.bounceIn,
-                      duration: const Duration(milliseconds: 500),
-                      bottom: 60 + movePositionAxis.value,
-                      right: 30,
-                      height: 80,
-                      child: Image.asset('assets/images/android_icon.png')),
-                  AnimatedPositioned(
-                      curve: Curves.bounceIn,
-                      duration: const Duration(milliseconds: 500),
-                      top: 10 + movePositionAxis.value,
-                      right: 30,
-                      height: 80,
-                      child: Image.asset('assets/images/flutter_icon.png')),
-                ],
-              ))
-        ],
+                  ),
+                )),
+            Flexible(
+                flex: 1,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                        child: AnimatedOpacity(
+                      duration: const Duration(seconds: 1),
+                      opacity: opacity,
+                      child: Image.asset(
+                        'assets/images/mario_profile.png',
+                        fit: BoxFit.contain,
+                      ),
+                    )),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        top: 30 * .10 + movePositionAxis.value,
+                        left: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/swift_ui.png')),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        bottom: 5 + movePositionAxis.value,
+                        left: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/react_icon.png')),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        bottom: 30 + movePositionAxis.value,
+                        right: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/android_icon.png')),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        top: 10 + movePositionAxis.value,
+                        right: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/flutter_icon.png')),
+                  ],
+                ))
+          ],
+        ),
+      ),
+      childDesktop: SizedBox(
+        height: 500,
+        child: Flex(
+          direction: Axis.horizontal,
+          children: [
+            Flexible(
+                flex: 1,
+                child: Center(
+                  child: AnimatedOpacity(
+                    opacity: opacity,
+                    duration: const Duration(seconds: 1),
+                    child: RichText(
+                      text: TextSpan(
+                          text: 'Hi! I am \n',
+                          style: const TextStyle(fontSize: 50),
+                          children: [
+                            TextSpan(
+                                text: 'Mario Tejada',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                            TextSpan(
+                                text: ' ',
+                                style: TextStyle(
+                                    color: Theme.of(context).primaryColor)),
+                            WidgetSpan(
+                                style: const TextStyle(fontSize: 40),
+                                child: Icon(
+                                  Icons.android,
+                                  color: Theme.of(context).primaryColor,
+                                  size: 40,
+                                ),
+                                alignment: PlaceholderAlignment.bottom)
+                          ]),
+                    ),
+                  ),
+                )),
+            Flexible(
+                flex: 1,
+                child: Stack(
+                  children: [
+                    Positioned.fill(
+                        child: AnimatedOpacity(
+                      duration: const Duration(seconds: 1),
+                      opacity: opacity,
+                      child: Image.asset(
+                        'assets/images/mario_profile.png',
+                        fit: BoxFit.contain,
+                      ),
+                    )),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        top: 30 + movePositionAxis.value,
+                        left: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/swift_ui.png')),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        bottom: 5 + movePositionAxis.value,
+                        left: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/react_icon.png')),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        bottom: 60 + movePositionAxis.value,
+                        right: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/android_icon.png')),
+                    AnimatedPositioned(
+                        curve: Curves.bounceIn,
+                        duration: const Duration(milliseconds: 500),
+                        top: 10 + movePositionAxis.value,
+                        right: 30,
+                        height: 80,
+                        child: Image.asset('assets/images/flutter_icon.png')),
+                  ],
+                ))
+          ],
+        ),
       ),
     );
   }
