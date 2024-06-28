@@ -4,8 +4,6 @@ import 'package:my_resume_app/features/landing/views/welcome_section.dart';
 import 'package:my_resume_app/features/landing/widgets/app_bar_content.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
-import '../../../core/widgets/app_bar/sliver_app_bar.dart';
-
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -20,6 +18,39 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: Builder(
+        builder: (BuildContext context) => Drawer(
+          child: CustomScrollView(
+            slivers: [
+              SliverList(
+                  delegate: SliverChildListDelegate.fixed([
+                ListTile(
+                  onTap: () {
+                    Scaffold.of(context).closeDrawer();
+                    _scrollController.scrollToIndex(0);
+                  },
+                  title: const Text('Home'),
+                ),
+                ListTile(
+                  onTap: () {
+                    Scaffold.of(context).closeDrawer();
+                    _scrollController.scrollToIndex(1);
+                  },
+                  title: const Text('About me'),
+                ),
+                ListTile(
+                  onTap: () {},
+                  title: const Text('Works'),
+                ),
+                ListTile(
+                  onTap: () {},
+                  title: const Text('Projects'),
+                )
+              ])),
+            ],
+          ),
+        ),
+      ),
       body: Stack(
         children: [
           Positioned.fill(
@@ -28,19 +59,13 @@ class _HomePageState extends State<HomePage> {
               shrinkWrap: true,
               controller: _scrollController,
               slivers: [
-                SliverPersistentHeader(
-                    pinned: true,
-                    floating: true,
-                    delegate: SliverAppBarDelegate(
-                        child: AppBarContent(
-                          categoryKeys: const {
-                            'home': ValueKey(0),
-                            'About_me': ValueKey(1)
-                          },
-                          scrollController: _scrollController,
-                        ),
-                        maxHeight: 130,
-                        minHeight: 80)),
+                AppBarContent(
+                  categoryKeys: const {
+                    'home': ValueKey(0),
+                    'About_me': ValueKey(1)
+                  },
+                  scrollController: _scrollController,
+                ),
                 SliverToBoxAdapter(
                   child: AutoScrollTag(
                       key: const ValueKey(0),

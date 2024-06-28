@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume_app/core/responsive/responsive_layout.dart';
+import 'package:my_resume_app/core/widgets/app_bar/sliver_app_bar.dart';
 import 'package:my_resume_app/core/widgets/link_button.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
@@ -21,30 +23,55 @@ class _AppBarContentState extends State<AppBarContent> {
       CategoryItem('Works', 'route', widget.categoryKeys['home']!),
       CategoryItem('Projects', 'route', widget.categoryKeys['home']!),
     ];
-    return Material(
-      elevation: 1,
-      child: Row(
-        children: [
-          ...items
-              .map((e) => LinkButton(
-                    onCallback: () {
-                      widget.scrollController.scrollToIndex(e.keySection.value);
-                    },
-                    text: e.name,
-                    style: const TextStyle(fontSize: 20),
-                  ))
-              .toList(),
-          ElevatedButton(
-            onPressed: () {},
-            child: const Padding(
-              padding: EdgeInsets.all(8.0),
-              child: Text(
-                'Contact me',
-                style: TextStyle(fontSize: 20),
-              ),
+    return ResponsiveLayout(
+      isSliver: true,
+      childMobile: SliverAppBar(
+        forceMaterialTransparency: true,
+        elevation: 1,
+        floating: true,
+        pinned: true,
+        leading: Builder(
+          builder: (BuildContext context) => IconButton(
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+              icon: const Icon(Icons.menu)),
+        ),
+      ),
+      childDesktop: SliverPersistentHeader(
+        pinned: true,
+        floating: true,
+        delegate: SliverAppBarDelegate(
+          maxHeight: 130,
+          minHeight: 80,
+          child: Material(
+            elevation: 1,
+            child: Row(
+              children: [
+                ...items
+                    .map((e) => LinkButton(
+                          onCallback: () {
+                            widget.scrollController
+                                .scrollToIndex(e.keySection.value);
+                          },
+                          text: e.name,
+                          style: const TextStyle(fontSize: 20),
+                        ))
+                    .toList(),
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Text(
+                      'Contact me',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                  ),
+                )
+              ],
             ),
-          )
-        ],
+          ),
+        ),
       ),
     );
   }
