@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:my_resume_app/core/paths/images_paths.dart';
 import 'package:my_resume_app/features/landing/widgets/about_me/gallery_list.dart';
 
 class AboutMeSection extends StatefulWidget {
@@ -11,19 +13,33 @@ class AboutMeSection extends StatefulWidget {
 class _AboutMeSectionState extends State<AboutMeSection> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 600,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Text(
-            'About me',
-            style:
-                TextStyle(fontSize: 38, color: Theme.of(context).primaryColor),
-          ),
-          const GalleryList()
-        ],
-      ),
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Text(
+          'About me',
+          style: TextStyle(fontSize: 38, color: Theme.of(context).primaryColor),
+        ),
+        const Gap(20),
+        GalleryList(
+          items: [
+            GalleryItem(
+                description:
+                    'In general dog and cat lover (My Dogs Chop and Suki)',
+                title: 'Pets',
+                image: const AssetImage(pugsAndMePath)),
+            GalleryItem(
+                description: 'Picture of the "door" of the state of chihuahua',
+                title: 'I born in Chihuahua,Chihuahua Mexico',
+                image: const AssetImage(chihuahuaDoorPath)),
+            GalleryItem(
+                description: 'Picture of the "door" of the state of chihuahua',
+                title:
+                    'I graduatee from Instituto Tecnologico de Chihuahua numero 2',
+                image: const AssetImage(tecGraduationPath))
+          ],
+        )
+      ],
     );
   }
 }

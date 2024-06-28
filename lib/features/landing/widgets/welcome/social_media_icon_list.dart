@@ -37,7 +37,7 @@ class SocialMediaIconList extends StatelessWidget {
                   label: value.name,
                   child: IconButton(
                       color: Theme.of(context).primaryColor,
-                      iconSize: 24,
+                      iconSize: 30,
                       onPressed: () async {
                         if (!await launchUrl(value.url)) {
                           print('error');

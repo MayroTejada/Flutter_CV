@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 import 'package:my_resume_app/features/landing/views/about_me_section.dart';
+import 'package:my_resume_app/features/landing/views/app_bar_content.dart';
+import 'package:my_resume_app/features/landing/views/drawer_custome.dart';
 import 'package:my_resume_app/features/landing/views/welcome_section.dart';
-import 'package:my_resume_app/features/landing/widgets/app_bar_content.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class HomePage extends StatefulWidget {
@@ -18,38 +20,8 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Builder(
-        builder: (BuildContext context) => Drawer(
-          child: CustomScrollView(
-            slivers: [
-              SliverList(
-                  delegate: SliverChildListDelegate.fixed([
-                ListTile(
-                  onTap: () {
-                    Scaffold.of(context).closeDrawer();
-                    _scrollController.scrollToIndex(0);
-                  },
-                  title: const Text('Home'),
-                ),
-                ListTile(
-                  onTap: () {
-                    Scaffold.of(context).closeDrawer();
-                    _scrollController.scrollToIndex(1);
-                  },
-                  title: const Text('About me'),
-                ),
-                ListTile(
-                  onTap: () {},
-                  title: const Text('Works'),
-                ),
-                ListTile(
-                  onTap: () {},
-                  title: const Text('Projects'),
-                )
-              ])),
-            ],
-          ),
-        ),
+      drawer: DrawerCustome(
+        scrollController: _scrollController,
       ),
       body: Stack(
         children: [
@@ -72,6 +44,9 @@ class _HomePageState extends State<HomePage> {
                       controller: _scrollController,
                       index: 0,
                       child: const WelcomeSection()),
+                ),
+                const SliverToBoxAdapter(
+                  child: Gap(20),
                 ),
                 SliverToBoxAdapter(
                   child: AutoScrollTag(

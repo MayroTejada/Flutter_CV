@@ -41,7 +41,6 @@ class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
 
   @override
   Widget build(BuildContext context) {
-    Size screenSize = MediaQuery.of(context).size;
     return ResponsiveLayout(
       childMobile: SizedBox(
         height: 500,
