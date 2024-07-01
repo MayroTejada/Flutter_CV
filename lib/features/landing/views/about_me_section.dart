@@ -22,6 +22,7 @@ class _AboutMeSectionState extends State<AboutMeSection> {
         ),
         const Gap(20),
         GalleryList(
+          itemsPerPage: 1,
           items: [
             GalleryItem(
                 description:
@@ -33,9 +34,9 @@ class _AboutMeSectionState extends State<AboutMeSection> {
                 title: 'I born in Chihuahua,Chihuahua Mexico',
                 image: const AssetImage(chihuahuaDoorPath)),
             GalleryItem(
-                description: 'Picture of the "door" of the state of chihuahua',
-                title:
-                    'I graduatee from Instituto Tecnologico de Chihuahua numero 2',
+                description:
+                    'Graduated from Instituto Tecnologico de Chihuahua no 2 in Computer science(2018-2022)',
+                title: '<3',
                 image: const AssetImage(tecGraduationPath))
           ],
         )

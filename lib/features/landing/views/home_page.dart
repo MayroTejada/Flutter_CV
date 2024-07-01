@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_resume_app/features/landing/views/about_me_section.dart';
@@ -6,6 +7,7 @@ import 'package:my_resume_app/features/landing/views/drawer_custome.dart';
 import 'package:my_resume_app/features/landing/views/welcome_section.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 

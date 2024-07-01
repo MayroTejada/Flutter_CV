@@ -40,6 +40,10 @@ dependencies:
   m3_carousel: ^1.0.2
   scrollable_positioned_list: ^0.3.8
   scroll_to_index: ^3.0.1
+  auto_route: ^8.2.0
+  build_runner: ^2.4.11
+  auto_route_generator: ^8.0.0
+  lottie: ^3.1.2
 
 dev_dependencies:
   flutter_test:
@@ -75,6 +79,7 @@ flutter:
     - assets/gallery/pugs_and_me.png
     - assets/gallery/chihuahua_door.png
     - assets/gallery/tec_graduate.png
+    - assets/animations/fox.json
   #   - images/a_dot_ham.jpeg
 
   # An image asset can refer to one or more resolution-specific "variants", see
