@@ -1,5 +1,8 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:my_resume_app/features/landing/widgets/about_me/image_gallery.dart';
+import 'package:my_resume_app/core/router/app_router.gr.dart';
+import 'package:my_resume_app/features/landing/hero/gallery_item_hero.dart';
+import 'package:my_resume_app/features/landing/pages/gallery_image_detail_page.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 class GalleryList extends StatefulWidget {
@@ -48,9 +51,10 @@ class _GalleryListState extends State<GalleryList> {
             physics: const BouncingScrollPhysics(),
             shrinkWrap: true,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: widget.itemsPerPage,
+                crossAxisCount: 1,
                 mainAxisSpacing: 20,
-                mainAxisExtent: MediaQuery.of(context).size.width),
+                mainAxisExtent:
+                    MediaQuery.of(context).size.width / widget.itemsPerPage),
             itemCount: widget.items.length,
             itemBuilder: (context, index) => AutoScrollTag(
               controller: scrollController,
@@ -60,27 +64,36 @@ class _GalleryListState extends State<GalleryList> {
                 onTap: () {
                   currentIndex = index;
                   scrollController.scrollToIndex(index);
+                  context.pushRoute(GalleryImageDetailRoute(
+                      args: GalleryArgsPath(
+                    tag: index.toString(),
+                    description: widget.items.elementAt(index).description,
+                    title: widget.items.elementAt(index).title,
+                    image: widget.items.elementAt(index).image,
+                  )));
                 },
-                child: ImageGallery(
-                    title: SizedBox(
-                      height: 80,
-                      child: Center(
-                        child: Text(
-                          textAlign: TextAlign.center,
-                          widget.items.elementAt(index).title,
-                          style: const TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold),
-                        ),
+                child: GalleryImageHero(
+                  title: SizedBox(
+                    height: 80,
+                    child: Center(
+                      child: Text(
+                        textAlign: TextAlign.center,
+                        widget.items.elementAt(index).title,
+                        style: const TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.bold),
                       ),
                     ),
-                    description: SizedBox(
-                      height: 80,
-                      child: Text(
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(fontSize: 18),
-                          widget.items.elementAt(index).description),
-                    ),
-                    image: widget.items.elementAt(index).image),
+                  ),
+                  description: SizedBox(
+                    height: 80,
+                    child: Text(
+                        textAlign: TextAlign.center,
+                        style: const TextStyle(fontSize: 18),
+                        widget.items.elementAt(index).description),
+                  ),
+                  image: widget.items.elementAt(index).image,
+                  tag: index.toString(),
+                ),
               ),
             ),
           ),
