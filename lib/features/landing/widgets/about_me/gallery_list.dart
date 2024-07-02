@@ -123,32 +123,39 @@ class _GalleryListState extends State<GalleryList> {
           ),
         ),
         Positioned(
-            left: 1,
-            height: 60,
-            child: Card(
-              child: IconButton(
-                  onPressed: () {
-                    if (currentIndex >= 0) {
-                      scrollController
-                          .scrollToIndex(currentIndex = currentIndex - 1);
-                    }
-                  },
-                  icon: const Icon(Icons.arrow_left)),
-            )),
-        Positioned(
-            right: 1,
-            height: 60,
-            child: Card(
-              child: IconButton(
+            left: 10,
+            child: IconButton(
+                style: ButtonStyle(
+                    shadowColor: const WidgetStatePropertyAll(Colors.grey),
+                    elevation: const WidgetStatePropertyAll(2),
+                    backgroundColor: WidgetStatePropertyAll(
+                        Theme.of(context).scaffoldBackgroundColor)),
+                onPressed: () {
+                  if (currentIndex >= 0) {
+                    scrollController
+                        .scrollToIndex(currentIndex = currentIndex - 1);
+                  }
+                },
+                icon: Icon(
+                  Icons.arrow_left,
                   color: Theme.of(context).primaryColor,
-                  onPressed: () {
-                    if (currentIndex < widget.items.length) {
-                      scrollController
-                          .scrollToIndex(currentIndex = currentIndex + 1);
-                    }
-                  },
-                  icon: const Icon(Icons.arrow_right)),
-            )),
+                ))),
+        Positioned(
+            right: 10,
+            child: IconButton(
+                style: ButtonStyle(
+                    shadowColor: const WidgetStatePropertyAll(Colors.grey),
+                    elevation: const WidgetStatePropertyAll(2),
+                    backgroundColor: WidgetStatePropertyAll(
+                        Theme.of(context).scaffoldBackgroundColor)),
+                color: Theme.of(context).primaryColor,
+                onPressed: () {
+                  if (currentIndex < widget.items.length) {
+                    scrollController
+                        .scrollToIndex(currentIndex = currentIndex + 1);
+                  }
+                },
+                icon: const Icon(Icons.arrow_right))),
       ]),
     );
   }
