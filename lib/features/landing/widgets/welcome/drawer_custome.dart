@@ -20,23 +20,37 @@ class _DrawerCustomeState extends State<DrawerCustome> {
               ListTile(
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
-                  widget.pageController.jumpTo(0);
+                  widget.pageController.animateToPage(0,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.decelerate);
                 },
                 title: const Text('Home'),
               ),
               ListTile(
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
-                  widget.pageController.jumpTo(1);
+                  widget.pageController.animateToPage(1,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.decelerate);
                 },
                 title: const Text('About me'),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  widget.pageController.animateToPage(2,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.decelerate);
+                },
                 title: const Text('Works'),
               ),
               ListTile(
-                onTap: () {},
+                onTap: () {
+                  Scaffold.of(context).closeDrawer();
+                  widget.pageController.animateToPage(3,
+                      duration: const Duration(milliseconds: 500),
+                      curve: Curves.decelerate);
+                },
                 title: const Text('Projects'),
               )
             ])),
