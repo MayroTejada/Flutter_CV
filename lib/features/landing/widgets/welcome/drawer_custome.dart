@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 
 class DrawerCustome extends StatefulWidget {
-  final AutoScrollController scrollController;
-  const DrawerCustome({super.key, required this.scrollController});
+  final PageController pageController;
+  const DrawerCustome({super.key, required this.pageController});
 
   @override
   State<DrawerCustome> createState() => _DrawerCustomeState();
@@ -21,14 +20,14 @@ class _DrawerCustomeState extends State<DrawerCustome> {
               ListTile(
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
-                  widget.scrollController.scrollToIndex(0);
+                  widget.pageController.jumpTo(0);
                 },
                 title: const Text('Home'),
               ),
               ListTile(
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
-                  widget.scrollController.scrollToIndex(1);
+                  widget.pageController.jumpTo(1);
                 },
                 title: const Text('About me'),
               ),

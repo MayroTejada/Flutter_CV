@@ -52,13 +52,27 @@ class _GalleryImageDetailPageState extends State<GalleryImageDetailPage> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Card(
+                  InkWell(
+                    onHover: (value) {
+                      if (value) {
+                        context.maybePop();
+                      }
+                    },
                     child: IconButton(
+                        style: ButtonStyle(
+                            shadowColor:
+                                const WidgetStatePropertyAll(Colors.grey),
+                            elevation: const WidgetStatePropertyAll(2),
+                            backgroundColor: WidgetStatePropertyAll(
+                                Theme.of(context).scaffoldBackgroundColor)),
                         onPressed: () {
                           context.maybePop();
                         },
-                        icon: const Icon(Icons.arrow_back)),
-                  ),
+                        icon: Icon(
+                          Icons.keyboard_return,
+                          color: Theme.of(context).primaryColor,
+                        )),
+                  )
                 ],
               ),
             )

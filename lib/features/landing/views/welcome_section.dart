@@ -14,10 +14,10 @@ class WelcomeSection extends StatefulWidget {
 class _WelcomeSectionState extends State<WelcomeSection> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
-      children: [
+    return ListView(
+      shrinkWrap: true,
+      children: const [
         ImMarioTejadaBody(),
-        Gap(20),
         ResponsiveLayout(
           childMobile: Flex(
             direction: Axis.vertical,

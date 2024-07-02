@@ -2,13 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:my_resume_app/core/responsive/responsive_layout.dart';
 import 'package:my_resume_app/core/widgets/app_bar/sliver_app_bar.dart';
 import 'package:my_resume_app/core/widgets/link_button.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 
 class AppBarContent extends StatefulWidget {
-  final AutoScrollController scrollController;
-  final Map<String, ValueKey<int>> categoryKeys;
+  final num currentPage;
+  final PageController pageController;
+
   const AppBarContent(
-      {super.key, required this.categoryKeys, required this.scrollController});
+      {super.key, required this.pageController, this.currentPage = 0});
 
   @override
   State<AppBarContent> createState() => _AppBarContentState();
@@ -16,12 +16,17 @@ class AppBarContent extends StatefulWidget {
 
 class _AppBarContentState extends State<AppBarContent> {
   @override
+  void initState() {
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final List<CategoryItem> items = [
-      CategoryItem('Home', 'route', widget.categoryKeys['home']!),
-      CategoryItem('About', 'route', widget.categoryKeys['About_me']!),
-      CategoryItem('Works', 'route', widget.categoryKeys['home']!),
-      CategoryItem('Projects', 'route', widget.categoryKeys['home']!),
+      CategoryItem('Home', 'route', const ValueKey(0)),
+      CategoryItem('About', 'route', const ValueKey(1)),
+      CategoryItem('Works', 'route', const ValueKey(2)),
+      CategoryItem('Projects', 'route', const ValueKey(3)),
     ];
     return ResponsiveLayout(
       isSliver: true,
@@ -51,12 +56,18 @@ class _AppBarContentState extends State<AppBarContent> {
               children: [
                 ...items
                     .map((e) => LinkButton(
+                          isSelected:
+                              widget.currentPage.toInt() == e.keySection.value,
                           onCallback: () {
-                            widget.scrollController
-                                .scrollToIndex(e.keySection.value);
+                            widget.pageController.animateToPage(
+                                e.keySection.value,
+                                duration: const Duration(milliseconds: 500),
+                                curve: Curves.decelerate);
                           },
                           text: e.name,
-                          style: const TextStyle(fontSize: 20),
+                          style: const TextStyle(
+                            fontSize: 20,
+                          ),
                         ))
                     .toList(),
                 ElevatedButton(

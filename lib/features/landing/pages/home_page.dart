@@ -1,11 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:gap/gap.dart';
 import 'package:my_resume_app/features/landing/views/about_me_section.dart';
+import 'package:my_resume_app/features/landing/views/projects_section.dart';
 import 'package:my_resume_app/features/landing/views/welcome_section.dart';
+import 'package:my_resume_app/features/landing/views/works_section.dart';
 import 'package:my_resume_app/features/landing/widgets/welcome/app_bar_content.dart';
 import 'package:my_resume_app/features/landing/widgets/welcome/drawer_custome.dart';
-import 'package:scroll_to_index/scroll_to_index.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -16,48 +16,53 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  final GlobalKey _keyAboutMeSection =
-      GlobalKey(debugLabel: 'section_about_me');
-  final AutoScrollController _scrollController = AutoScrollController();
+  num page = 0;
+  late PageController pageController;
+
+  final ScrollController _scrollController = ScrollController();
+
+  @override
+  void initState() {
+    pageController = PageController(initialPage: 0);
+    pageController.addListener(() {
+      setState(() {
+        page = pageController.page ?? 0;
+      });
+    });
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerCustome(
-        scrollController: _scrollController,
+        pageController: pageController,
       ),
       body: Stack(
         children: [
           Positioned.fill(
             child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
+              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               controller: _scrollController,
               slivers: [
                 AppBarContent(
-                  categoryKeys: const {
-                    'home': ValueKey(0),
-                    'About_me': ValueKey(1)
-                  },
-                  scrollController: _scrollController,
+                  currentPage: page,
+                  pageController: pageController,
                 ),
-                SliverToBoxAdapter(
-                  child: AutoScrollTag(
-                      key: const ValueKey(0),
-                      controller: _scrollController,
-                      index: 0,
-                      child: const WelcomeSection()),
-                ),
-                const SliverToBoxAdapter(
-                  child: Gap(20),
-                ),
-                SliverToBoxAdapter(
-                  child: AutoScrollTag(
-                    key: const ValueKey(1),
-                    controller: _scrollController,
-                    index: 1,
-                    child: AboutMeSection(
-                      key: _keyAboutMeSection,
-                    ),
+                SliverFillRemaining(
+                  child: PageView(
+                    onPageChanged: (value) {
+                      page = value;
+                    },
+                    controller: pageController,
+                    scrollDirection: Axis.vertical,
+                    children: const [
+                      WelcomeSection(),
+                      AboutMeSection(),
+                      WorkSection(),
+                      ProjectsSection(),
+                    ],
                   ),
                 ),
               ],
@@ -74,7 +79,11 @@ class _HomePageState extends State<HomePage> {
                     backgroundColor: WidgetStatePropertyAll(
                         Theme.of(context).scaffoldBackgroundColor)),
                 onPressed: () {
-                  _scrollController.scrollToIndex(1);
+                  if (page < 3) {
+                    pageController.animateToPage(page.toInt() + 1,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.decelerate);
+                  }
                 },
                 icon: Icon(
                   Icons.arrow_downward,
