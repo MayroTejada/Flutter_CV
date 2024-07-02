@@ -1,6 +1,4 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:my_resume_app/core/router/app_router.gr.dart';
 import 'package:my_resume_app/features/landing/hero/gallery_item_hero.dart';
 import 'package:my_resume_app/features/landing/pages/gallery_image_detail_page.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -64,13 +62,20 @@ class _GalleryListState extends State<GalleryList> {
                 onTap: () {
                   currentIndex = index;
                   scrollController.scrollToIndex(index);
-                  context.pushRoute(GalleryImageDetailRoute(
-                      args: GalleryArgsPath(
-                    tag: index.toString(),
-                    description: widget.items.elementAt(index).description,
-                    title: widget.items.elementAt(index).title,
-                    image: widget.items.elementAt(index).image,
-                  )));
+                  Navigator.of(context).push(PageRouteBuilder(
+                      opaque: false,
+                      barrierDismissible: true,
+                      pageBuilder: (BuildContext context, _, __) {
+                        return GalleryImageDetailPage(
+                            args: GalleryArgsPath(
+                          tag: index.toString(),
+                          description:
+                              widget.items.elementAt(index).description,
+                          title: widget.items.elementAt(index).title,
+                          image: widget.items.elementAt(index).image,
+                        ));
+                      }));
+                  // context.pushRoute();
                 },
                 child: GalleryImageHero(
                   title: SizedBox(

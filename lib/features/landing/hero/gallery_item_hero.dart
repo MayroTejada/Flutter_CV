@@ -6,8 +6,10 @@ class GalleryImageHero extends StatefulWidget {
   final Widget? title;
   final Widget? description;
   final ImageProvider image;
+  final Size? size;
   const GalleryImageHero(
       {super.key,
+      this.size,
       this.title,
       required this.tag,
       required this.description,
@@ -47,7 +49,7 @@ class _GalleryImageHeroState extends State<GalleryImageHero> {
               ),
               const Gap(15),
               Image(
-                height: 300,
+                height: widget.size != null ? widget.size!.height : 300,
                 image: widget.image,
               ),
               const Gap(15),
