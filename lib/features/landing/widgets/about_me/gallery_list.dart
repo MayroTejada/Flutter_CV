@@ -58,47 +58,66 @@ class _GalleryListState extends State<GalleryList> {
               controller: scrollController,
               index: index,
               key: ValueKey(index),
-              child: GestureDetector(
-                onTap: () {
-                  currentIndex = index;
-                  scrollController.scrollToIndex(index);
-                  Navigator.of(context).push(PageRouteBuilder(
-                      opaque: false,
-                      barrierDismissible: true,
-                      pageBuilder: (BuildContext context, _, __) {
-                        return GalleryImageDetailPage(
-                            args: GalleryArgsPath(
-                          tag: index.toString(),
-                          description:
-                              widget.items.elementAt(index).description,
-                          title: widget.items.elementAt(index).title,
-                          image: widget.items.elementAt(index).image,
-                        ));
-                      }));
-                  // context.pushRoute();
-                },
-                child: GalleryImageHero(
-                  title: SizedBox(
-                    height: 80,
-                    child: Center(
-                      child: Text(
-                        textAlign: TextAlign.center,
-                        widget.items.elementAt(index).title,
-                        style: const TextStyle(
-                            fontSize: 20, fontWeight: FontWeight.bold),
-                      ),
+              child: GalleryImageHero(
+                title: SizedBox(
+                  height: 80,
+                  child: Center(
+                    child: Text(
+                      textAlign: TextAlign.center,
+                      widget.items.elementAt(index).title,
+                      style: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
                     ),
                   ),
-                  description: SizedBox(
-                    height: 80,
-                    child: Text(
-                        textAlign: TextAlign.center,
-                        style: const TextStyle(fontSize: 18),
-                        widget.items.elementAt(index).description),
-                  ),
-                  image: widget.items.elementAt(index).image,
-                  tag: index.toString(),
                 ),
+                description: SizedBox(
+                  height: 80,
+                  child: Text(
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(fontSize: 18),
+                      widget.items.elementAt(index).description),
+                ),
+                image: InkWell(
+                    onHover: (value) {
+                      if (value) {
+                        Navigator.of(context).push(PageRouteBuilder(
+                            opaque: false,
+                            barrierDismissible: true,
+                            pageBuilder: (BuildContext context, _, __) {
+                              return GalleryImageDetailPage(
+                                  args: GalleryArgsPath(
+                                tag: index.toString(),
+                                description:
+                                    widget.items.elementAt(index).description,
+                                title: widget.items.elementAt(index).title,
+                                image: widget.items.elementAt(index).image,
+                              ));
+                            }));
+                      }
+                    },
+                    onTap: () {
+                      currentIndex = index;
+                      scrollController.scrollToIndex(index);
+                      Navigator.of(context).push(PageRouteBuilder(
+                          opaque: false,
+                          barrierDismissible: true,
+                          pageBuilder: (BuildContext context, _, __) {
+                            return GalleryImageDetailPage(
+                                args: GalleryArgsPath(
+                              tag: index.toString(),
+                              description:
+                                  widget.items.elementAt(index).description,
+                              title: widget.items.elementAt(index).title,
+                              image: widget.items.elementAt(index).image,
+                            ));
+                          }));
+                      // context.pushRoute();
+                    },
+                    child: Image(
+                      image: widget.items.elementAt(index).image,
+                      height: 300,
+                    )),
+                tag: index.toString(),
               ),
             ),
           ),

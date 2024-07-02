@@ -15,50 +15,54 @@ class GalleryImageDetailPage extends StatefulWidget {
 class _GalleryImageDetailPageState extends State<GalleryImageDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return PopScope(
-      child: Dialog(
-        shape: const RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(Radius.circular(20))),
-        shadowColor: Colors.grey,
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height,
-            child: ListView(shrinkWrap: true, children: [
-              GalleryImageHero(
-                  size: const Size(500, 500),
-                  tag: widget.args.tag,
-                  title: Center(
-                    child: Text(
-                      textAlign: TextAlign.center,
-                      widget.args.title ?? '',
-                      style: const TextStyle(
-                          fontSize: 20, fontWeight: FontWeight.bold),
-                    ),
+    return Dialog(
+      insetAnimationDuration: const Duration(seconds: 5),
+      insetPadding: EdgeInsets.symmetric(
+          vertical: MediaQuery.of(context).size.width / 14,
+          horizontal: MediaQuery.of(context).size.width / 6),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      shadowColor: Colors.grey,
+      child: ListView(
+          padding: const EdgeInsets.all(16.0),
+          shrinkWrap: true,
+          children: [
+            GalleryImageHero(
+                size: const Size(300, 300),
+                tag: widget.args.tag,
+                title: Center(
+                  child: Text(
+                    textAlign: TextAlign.center,
+                    widget.args.title ?? '',
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold),
                   ),
-                  description: Text(
-                      textAlign: TextAlign.center,
-                      style: const TextStyle(fontSize: 18),
-                      widget.args.description ?? ''),
-                  image: widget.args.image),
-              const Gap(30),
-              SizedBox(
-                width: 100,
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    IconButton(
+                ),
+                description: Text(
+                    textAlign: TextAlign.center,
+                    style: const TextStyle(fontSize: 18),
+                    widget.args.description ?? ''),
+                image: Image(
+                  image: widget.args.image,
+                  height: 400,
+                )),
+            const Gap(30),
+            SizedBox(
+              width: 100,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Card(
+                    child: IconButton(
                         onPressed: () {
                           context.maybePop();
                         },
                         icon: const Icon(Icons.arrow_back)),
-                  ],
-                ),
-              )
-            ]),
-          ),
-        ),
-      ),
+                  ),
+                ],
+              ),
+            )
+          ]),
     );
   }
 }

@@ -2,9 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_resume_app/features/landing/views/about_me_section.dart';
-import 'package:my_resume_app/features/landing/views/app_bar_content.dart';
-import 'package:my_resume_app/features/landing/views/drawer_custome.dart';
 import 'package:my_resume_app/features/landing/views/welcome_section.dart';
+import 'package:my_resume_app/features/landing/widgets/welcome/app_bar_content.dart';
+import 'package:my_resume_app/features/landing/widgets/welcome/drawer_custome.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 
 @RoutePage()
@@ -68,12 +68,19 @@ class _HomePageState extends State<HomePage> {
               left: MediaQuery.of(context).size.width / 12,
               duration: const Duration(milliseconds: 400),
               child: IconButton(
-                  iconSize: 36,
+                style: ButtonStyle(
+                    shadowColor: const WidgetStatePropertyAll(Colors.grey),
+                    elevation: const WidgetStatePropertyAll(2),
+                    backgroundColor: WidgetStatePropertyAll(
+                        Theme.of(context).scaffoldBackgroundColor)),
+                onPressed: () {
+                  _scrollController.scrollToIndex(1);
+                },
+                icon: Icon(
+                  Icons.arrow_downward,
                   color: Theme.of(context).primaryColor,
-                  onPressed: () {
-                    _scrollController.scrollToIndex(1);
-                  },
-                  icon: const Icon(Icons.arrow_downward))),
+                ),
+              )),
         ],
       ),
     );

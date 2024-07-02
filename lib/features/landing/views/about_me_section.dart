@@ -18,13 +18,14 @@ class _AboutMeSectionState extends State<AboutMeSection> {
         title: 'Pets',
         image: const AssetImage(pugsAndMePath)),
     GalleryItem(
-        description: 'Picture of the "door" of the state of chihuahua',
-        title: 'I born in Chihuahua,Chihuahua Mexico',
+        title: 'Where I live',
+        description:
+            'I was born in Chihuahua,Chihuahua Mexico, this picture of the "door" of the state of chihuahua',
         image: const AssetImage(chihuahuaDoorPath)),
     GalleryItem(
         description:
             'Graduated from Instituto Tecnologico de Chihuahua no 2 in Computer science(2018-2022)',
-        title: '<3',
+        title: 'Scholarship',
         image: const AssetImage(tecGraduationPath))
   ];
   @override
