@@ -4,3 +4,4 @@ const String pugsAndMePath = 'assets/gallery/pugs_and_me.png';
 const String chihuahuaDoorPath = 'assets/gallery/chihuahua_door.png';
 const String tecGraduationPath = 'assets/gallery/tec_graduate.png';
 const String foxAnimationPath = 'assets/animations/fox.json';
+const String controllaJobPath = 'assets/jobs/controlla_icon.png';

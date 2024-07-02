@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    pageController = PageController(initialPage: 0);
+    pageController = PageController(initialPage: 2);
     pageController.addListener(() {
       setState(() {
         page = pageController.page ?? 0;
