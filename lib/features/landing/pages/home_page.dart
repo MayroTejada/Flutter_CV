@@ -70,7 +70,9 @@ class _HomePageState extends State<HomePage> {
               child: IconButton(
                   iconSize: 36,
                   color: Theme.of(context).primaryColor,
-                  onPressed: () {},
+                  onPressed: () {
+                    _scrollController.scrollToIndex(1);
+                  },
                   icon: const Icon(Icons.arrow_downward))),
         ],
       ),
