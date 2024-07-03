@@ -35,7 +35,6 @@ class _AppBarContentState extends State<AppBarContent> {
         elevation: 3,
         forceElevated: true,
         floating: true,
-        pinned: true,
         leading: Builder(
           builder: (BuildContext context) => IconButton(
               onPressed: () {
@@ -45,10 +44,8 @@ class _AppBarContentState extends State<AppBarContent> {
         ),
       ),
       childDesktop: SliverPersistentHeader(
-        pinned: true,
-        floating: true,
         delegate: SliverAppBarDelegate(
-          maxHeight: 130,
+          maxHeight: kToolbarHeight,
           minHeight: 80,
           child: Material(
             elevation: 1,

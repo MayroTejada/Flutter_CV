@@ -159,10 +159,14 @@ class _HomePageState extends State<HomePage> {
                     _pageController.animateToPage(page.toInt() + 1,
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.decelerate);
+                  } else {
+                    _pageController.animateToPage(0,
+                        duration: const Duration(milliseconds: 500),
+                        curve: Curves.decelerate);
                   }
                 },
                 icon: Icon(
-                  Icons.arrow_downward,
+                  page < 3 ? Icons.arrow_downward : Icons.arrow_upward,
                   color: Theme.of(context).primaryColor,
                 ),
               )),
