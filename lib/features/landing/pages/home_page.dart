@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:my_resume_app/features/landing/views/about_me_section.dart';
 import 'package:my_resume_app/features/landing/views/projects_section.dart';
@@ -17,52 +18,127 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   num page = 0;
-  late PageController pageController;
+  final PageController _pageController = PageController(
+    initialPage: 0,
+  );
 
-  final ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController =
+      ScrollController(debugLabel: 'main');
+  final ScrollController _welcomeSectionScrollController =
+      ScrollController(debugLabel: 'welcome');
+  final ScrollController _workScrollController =
+      ScrollController(debugLabel: 'work');
+  late ScrollController _activeScrollController;
+  Drag? _drag;
 
   @override
   void initState() {
-    pageController = PageController(initialPage: 2);
-    pageController.addListener(() {
+    _pageController.addListener(() {
       setState(() {
-        page = pageController.page ?? 0;
+        page = _pageController.page ?? 0;
       });
     });
     super.initState();
+  }
+
+  void _handleDragCancel() {
+    _drag?.cancel();
+  }
+
+  void _handleDragEnd(DragEndDetails details) {
+    _drag?.end(details);
+  }
+
+  void _handleDragUpdate(DragUpdateDetails details) {
+    if (_activeScrollController == _welcomeSectionScrollController &&
+        details.primaryDelta! < 0 &&
+        _activeScrollController.position.pixels ==
+            _activeScrollController.position.maxScrollExtent) {
+      _activeScrollController = _pageController;
+      _drag?.cancel();
+      _drag = _pageController.position.drag(
+          DragStartDetails(
+              globalPosition: details.globalPosition,
+              localPosition: details.localPosition),
+          _disposeDrag);
+    }
+    _drag?.update(details);
+  }
+
+  void _disposeDrag() {
+    _drag = null;
+  }
+
+  void _handleDragStart(DragStartDetails details) {
+    if (_welcomeSectionScrollController.hasClients) {
+      final RenderBox? renderBox = _welcomeSectionScrollController
+          .position.context.storageContext
+          .findRenderObject() as RenderBox?;
+      if (renderBox!.paintBounds
+          .shift(renderBox.localToGlobal(Offset.zero))
+          .contains(details.globalPosition)) {
+        _activeScrollController = _welcomeSectionScrollController;
+        _drag = _activeScrollController.position.drag(details, _disposeDrag);
+        return;
+      }
+    }
+    _activeScrollController = _pageController;
+    _drag = _pageController.position.drag(details, _disposeDrag);
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: DrawerCustome(
-        pageController: pageController,
+        pageController: _pageController,
       ),
       body: Stack(
         children: [
           Positioned.fill(
             child: CustomScrollView(
-              physics: const NeverScrollableScrollPhysics(),
               shrinkWrap: true,
               controller: _scrollController,
               slivers: [
                 AppBarContent(
                   currentPage: page,
-                  pageController: pageController,
+                  pageController: _pageController,
                 ),
                 SliverFillRemaining(
-                  child: PageView(
-                    onPageChanged: (value) {
-                      page = value;
+                  fillOverscroll: true,
+                  child: RawGestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    gestures: <Type, GestureRecognizerFactory>{
+                      VerticalDragGestureRecognizer:
+                          GestureRecognizerFactoryWithHandlers<
+                                  VerticalDragGestureRecognizer>(
+                              () => VerticalDragGestureRecognizer(),
+                              (VerticalDragGestureRecognizer instance) {
+                        instance
+                          ..onStart = _handleDragStart
+                          ..onUpdate = _handleDragUpdate
+                          ..onEnd = _handleDragEnd
+                          ..onCancel = _handleDragCancel;
+                      })
                     },
-                    controller: pageController,
-                    scrollDirection: Axis.vertical,
-                    children: const [
-                      WelcomeSection(),
-                      AboutMeSection(),
-                      WorkSection(),
-                      ProjectsSection(),
-                    ],
+                    child: PageView(
+                      physics: const NeverScrollableScrollPhysics(),
+                      allowImplicitScrolling: true,
+                      onPageChanged: (value) {
+                        page = value;
+                      },
+                      controller: _pageController,
+                      scrollDirection: Axis.vertical,
+                      children: [
+                        WelcomeSection(
+                          scrollController: _welcomeSectionScrollController,
+                        ),
+                        const AboutMeSection(),
+                        WorkSection(
+                          scrollController: _workScrollController,
+                        ),
+                        const ProjectsSection(),
+                      ],
+                    ),
                   ),
                 ),
               ],
@@ -80,7 +156,7 @@ class _HomePageState extends State<HomePage> {
                         Theme.of(context).scaffoldBackgroundColor)),
                 onPressed: () {
                   if (page < 3) {
-                    pageController.animateToPage(page.toInt() + 1,
+                    _pageController.animateToPage(page.toInt() + 1,
                         duration: const Duration(milliseconds: 500),
                         curve: Curves.decelerate);
                   }

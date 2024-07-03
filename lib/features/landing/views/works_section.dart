@@ -4,7 +4,8 @@ import 'package:my_resume_app/core/paths/images_paths.dart';
 import 'package:my_resume_app/features/landing/widgets/works/job_resume_card.dart';
 
 class WorkSection extends StatefulWidget {
-  const WorkSection({super.key});
+  final ScrollController scrollController;
+  const WorkSection({super.key, required this.scrollController});
 
   @override
   State<WorkSection> createState() => _WorkSectionState();
@@ -14,6 +15,7 @@ class _WorkSectionState extends State<WorkSection> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      controller: widget.scrollController,
       shrinkWrap: true,
       children: [
         const Gap(20),

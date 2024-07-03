@@ -16,6 +16,12 @@ class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
   late Animation<double> movePositionAxis;
 
   @override
+  void dispose() {
+    animationController.dispose();
+    super.dispose();
+  }
+
+  @override
   void initState() {
     super.initState();
     animationController = AnimationController(

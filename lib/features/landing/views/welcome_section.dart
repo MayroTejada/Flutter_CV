@@ -5,7 +5,8 @@ import 'package:my_resume_app/features/landing/widgets/welcome/im_mario_body.dar
 import 'package:my_resume_app/features/landing/widgets/welcome/social_media_icon_list.dart';
 
 class WelcomeSection extends StatefulWidget {
-  const WelcomeSection({super.key});
+  final ScrollController scrollController;
+  const WelcomeSection({super.key, required this.scrollController});
 
   @override
   State<WelcomeSection> createState() => _WelcomeSectionState();
@@ -15,6 +16,8 @@ class _WelcomeSectionState extends State<WelcomeSection> {
   @override
   Widget build(BuildContext context) {
     return ListView(
+      physics: const NeverScrollableScrollPhysics(),
+      controller: widget.scrollController,
       shrinkWrap: true,
       children: const [
         ImMarioTejadaBody(),
