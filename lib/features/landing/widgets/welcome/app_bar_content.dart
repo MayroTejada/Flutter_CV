@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume_app/core/responsive/responsive_layout.dart';
 import 'package:my_resume_app/core/widgets/app_bar/sliver_app_bar.dart';
 import 'package:my_resume_app/core/widgets/link_button.dart';
+import 'package:my_resume_app/features/theme_changer/presentation/bloc/theme_changer_bloc.dart';
 
 class AppBarContent extends StatefulWidget {
   final num currentPage;
@@ -15,6 +17,7 @@ class AppBarContent extends StatefulWidget {
 }
 
 class _AppBarContentState extends State<AppBarContent> {
+  bool isDay = true;
   @override
   void initState() {
     super.initState();
@@ -67,16 +70,26 @@ class _AppBarContentState extends State<AppBarContent> {
                           ),
                         ))
                     .toList(),
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Text(
-                      'Contact me',
-                      style: TextStyle(fontSize: 20),
-                    ),
-                  ),
-                )
+                BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
+                  builder: (context, state) {
+                    return Switch(
+                        value: isDay,
+                        onChanged: (value) {
+                          setState(() {
+                            isDay = value;
+                          });
+                          if (value) {
+                            context
+                                .read<ThemeChangerBloc>()
+                                .add(ThemeToDayEvent());
+                          } else {
+                            context
+                                .read<ThemeChangerBloc>()
+                                .add(ThemeToNightEvent());
+                          }
+                        });
+                  },
+                ),
               ],
             ),
           ),

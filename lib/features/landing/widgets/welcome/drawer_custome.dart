@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:my_resume_app/features/theme_changer/presentation/bloc/theme_changer_bloc.dart';
 
 class DrawerCustome extends StatefulWidget {
   final PageController pageController;
@@ -9,6 +11,7 @@ class DrawerCustome extends StatefulWidget {
 }
 
 class _DrawerCustomeState extends State<DrawerCustome> {
+  bool isDay = true;
   @override
   Widget build(BuildContext context) {
     return Builder(
@@ -17,6 +20,27 @@ class _DrawerCustomeState extends State<DrawerCustome> {
           slivers: [
             SliverList(
                 delegate: SliverChildListDelegate.fixed([
+              BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
+                builder: (context, state) {
+                  return SwitchListTile(
+                      title: const Text('Theme Mode Day'),
+                      value: isDay,
+                      onChanged: (value) {
+                        setState(() {
+                          isDay = value;
+                        });
+                        if (value) {
+                          context
+                              .read<ThemeChangerBloc>()
+                              .add(ThemeToDayEvent());
+                        } else {
+                          context
+                              .read<ThemeChangerBloc>()
+                              .add(ThemeToNightEvent());
+                        }
+                      });
+                },
+              ),
               ListTile(
                 onTap: () {
                   Scaffold.of(context).closeDrawer();
