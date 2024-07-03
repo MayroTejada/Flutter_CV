@@ -24,7 +24,7 @@ class _DrawerCustomeState extends State<DrawerCustome> {
                 builder: (context, state) {
                   return SwitchListTile(
                       title: const Text('Theme Mode Day'),
-                      value: isDay,
+                      value: state.stateEnum == ThemeChangetStateEnum.day,
                       onChanged: (value) {
                         setState(() {
                           isDay = value;

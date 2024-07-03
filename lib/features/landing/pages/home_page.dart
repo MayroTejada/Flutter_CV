@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:my_resume_app/core/theme/extensions/theme_data_extensions.dart';
 import 'package:my_resume_app/features/landing/views/about_me_section.dart';
 import 'package:my_resume_app/features/landing/views/projects_section.dart';
 import 'package:my_resume_app/features/landing/views/welcome_section.dart';
@@ -149,7 +150,7 @@ class _HomePageState extends State<HomePage> {
               left: MediaQuery.of(context).size.width / 12,
               duration: const Duration(milliseconds: 400),
               child: IconButton(
-                style: ButtonStyle(
+                style: Theme.of(context).appIconsTheme.iconButtonStyle.copyWith(
                     shadowColor: const WidgetStatePropertyAll(Colors.grey),
                     elevation: const WidgetStatePropertyAll(2),
                     backgroundColor: WidgetStatePropertyAll(
@@ -165,10 +166,8 @@ class _HomePageState extends State<HomePage> {
                         curve: Curves.decelerate);
                   }
                 },
-                icon: Icon(
-                  page < 3 ? Icons.arrow_downward : Icons.arrow_upward,
-                  color: Theme.of(context).primaryColor,
-                ),
+                icon:
+                    Icon(page < 3 ? Icons.arrow_downward : Icons.arrow_upward),
               )),
         ],
       ),

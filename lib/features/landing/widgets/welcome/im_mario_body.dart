@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_resume_app/core/responsive/responsive_layout.dart';
+import 'package:my_resume_app/core/theme/extensions/theme_data_extensions.dart';
 
 class ImMarioTejadaBody extends StatefulWidget {
   const ImMarioTejadaBody({super.key});
@@ -56,25 +57,24 @@ class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
             child: AnimatedOpacity(
               opacity: opacity,
               duration: const Duration(seconds: 1),
-              child: RichText(
-                text: TextSpan(
+              child: Text.rich(
+                TextSpan(
                     text: 'Hi! I am \n',
                     style: const TextStyle(fontSize: 50),
                     children: [
                       TextSpan(
                           text: 'Mario Tejada',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor)),
-                      TextSpan(
-                          text: ' ',
-                          style:
-                              TextStyle(color: Theme.of(context).primaryColor)),
+                          style: Theme.of(context).appTextsTheme.textStyle),
+                      const TextSpan(
+                        text: ' ',
+                      ),
                       WidgetSpan(
                           style: const TextStyle(fontSize: 40),
-                          child: Icon(
-                            Icons.android,
-                            color: Theme.of(context).primaryColor,
-                            size: 40,
+                          child: IconButton(
+                            onPressed: () {},
+                            style:
+                                Theme.of(context).appIconsTheme.iconButtonStyle,
+                            icon: const Icon(Icons.android, size: 40),
                           ),
                           alignment: PlaceholderAlignment.bottom)
                     ]),
@@ -139,26 +139,27 @@ class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
                   child: AnimatedOpacity(
                     opacity: opacity,
                     duration: const Duration(seconds: 1),
-                    child: RichText(
-                      text: TextSpan(
+                    child: Text.rich(
+                      TextSpan(
                           text: 'Hi! I am \n',
                           style: const TextStyle(fontSize: 50),
                           children: [
                             TextSpan(
                                 text: 'Mario Tejada',
-                                style: TextStyle(
-                                    color: Theme.of(context).primaryColor)),
+                                style:
+                                    Theme.of(context).appTextsTheme.textStyle),
                             TextSpan(
                                 text: ' ',
                                 style: TextStyle(
                                     color: Theme.of(context).primaryColor)),
                             WidgetSpan(
                                 style: const TextStyle(fontSize: 40),
-                                child: Icon(
-                                  Icons.android,
-                                  color: Theme.of(context).primaryColor,
-                                  size: 40,
-                                ),
+                                child: IconButton(
+                                    onPressed: () {},
+                                    style: Theme.of(context)
+                                        .appIconsTheme
+                                        .iconButtonStyle,
+                                    icon: const Icon(Icons.android, size: 40)),
                                 alignment: PlaceholderAlignment.bottom)
                           ]),
                     ),

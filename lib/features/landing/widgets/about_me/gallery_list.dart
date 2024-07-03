@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume_app/core/theme/extensions/theme_data_extensions.dart';
 import 'package:my_resume_app/features/landing/hero/gallery_item_hero.dart';
 import 'package:my_resume_app/features/landing/pages/gallery_image_detail_page.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
@@ -125,7 +126,7 @@ class _GalleryListState extends State<GalleryList> {
         Positioned(
             left: 10,
             child: IconButton(
-                style: ButtonStyle(
+                style: Theme.of(context).appIconsTheme.iconButtonStyle.copyWith(
                     shadowColor: const WidgetStatePropertyAll(Colors.grey),
                     elevation: const WidgetStatePropertyAll(2),
                     backgroundColor: WidgetStatePropertyAll(
@@ -136,14 +137,13 @@ class _GalleryListState extends State<GalleryList> {
                         .scrollToIndex(currentIndex = currentIndex - 1);
                   }
                 },
-                icon: Icon(
+                icon: const Icon(
                   Icons.arrow_left,
-                  color: Theme.of(context).primaryColor,
                 ))),
         Positioned(
             right: 10,
             child: IconButton(
-                style: ButtonStyle(
+                style: Theme.of(context).appIconsTheme.iconButtonStyle.copyWith(
                     shadowColor: const WidgetStatePropertyAll(Colors.grey),
                     elevation: const WidgetStatePropertyAll(2),
                     backgroundColor: WidgetStatePropertyAll(

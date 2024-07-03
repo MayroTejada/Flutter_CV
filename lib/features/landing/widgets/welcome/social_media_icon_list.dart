@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:my_resume_app/core/theme/extensions/theme_data_extensions.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SocialMediaIconList extends StatelessWidget {
@@ -36,6 +37,7 @@ class SocialMediaIconList extends StatelessWidget {
                   enabled: true,
                   label: value.name,
                   child: IconButton(
+                      style: Theme.of(context).appIconsTheme.iconButtonStyle,
                       color: Theme.of(context).primaryColor,
                       iconSize: 30,
                       onPressed: () async {

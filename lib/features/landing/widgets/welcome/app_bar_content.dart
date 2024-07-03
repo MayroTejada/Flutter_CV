@@ -73,7 +73,7 @@ class _AppBarContentState extends State<AppBarContent> {
                 BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
                   builder: (context, state) {
                     return Switch(
-                        value: isDay,
+                        value: state.stateEnum == ThemeChangetStateEnum.day,
                         onChanged: (value) {
                           setState(() {
                             isDay = value;
