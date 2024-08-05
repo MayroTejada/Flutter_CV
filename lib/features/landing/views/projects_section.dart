@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
+import 'package:my_resume_app/core/theme/extensions/theme_data_extensions.dart';
 
 class ProjectsSection extends StatefulWidget {
   const ProjectsSection({super.key});
@@ -13,10 +15,14 @@ class _ProjectsSectionState extends State<ProjectsSection> {
     return Column(
       children: [
         Text(
-          'Projects',
-          style: TextStyle(fontSize: 38, color: Theme.of(context).primaryColor),
+          'Projects (in progress..)',
+          style: Theme.of(context)
+              .appTextsTheme
+              .textStyle
+              .copyWith(fontSize: 34, fontWeight: FontWeight.bold),
         ),
-        const Placeholder(),
+        const Gap(5),
+        Image.asset('assets/projects/gallery.png'),
       ],
     );
   }
