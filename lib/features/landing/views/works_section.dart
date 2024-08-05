@@ -42,7 +42,7 @@ class _WorkSectionState extends State<WorkSection> {
                     image: const AssetImage(controllaJobPath),
                     jobPosition: 'Mobile Developer',
                     jobRangeTime: DateTimeRange(
-                        start: DateTime(2017, 4, 1), end: DateTime.now()),
+                        start: DateTime(2020, 4, 1), end: DateTime.now()),
                     location: 'Chihauhua')
               ],
             ),
