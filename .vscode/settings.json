@@ -14,8 +14,9 @@
     "test/features/sign_up/presentation/bloc"
   ],
   "editor.codeActionsOnSave": {
-    "source.fixAll": true,
-    "source.organizeImports": true
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit"
   },
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "webosose.lunaApiLevel": "TV_APILevel_23"
 }

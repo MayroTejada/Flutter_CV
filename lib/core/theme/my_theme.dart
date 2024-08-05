@@ -369,9 +369,7 @@ class MaterialTheme {
       ),
       scaffoldBackgroundColor: colorScheme.surface,
       canvasColor: colorScheme.surface,
-      extensions: const [
-        
-      ]);
+      extensions: const []);
 
   List<ExtendedColor> get extendedColors => [];
 }

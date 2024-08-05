@@ -30,23 +30,21 @@ class _WorkSectionState extends State<WorkSection> {
           ],
         ),
         SizedBox(
-          height: 500,
+          height: 550,
+          width: 300,
           child: Center(
-            child: GridView.builder(
+            child: ListView(
               shrinkWrap: true,
               scrollDirection: Axis.horizontal,
-              itemCount: 1,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 1, childAspectRatio: 1),
-              itemBuilder: (context, index) {
-                return JobResumeCard(
+              children: [
+                JobResumeCard(
                     keyResponsabilities: const ['', ''],
                     image: const AssetImage(controllaJobPath),
                     jobPosition: 'Mobile Developer',
                     jobRangeTime: DateTimeRange(
                         start: DateTime(2017, 4, 1), end: DateTime.now()),
-                    location: 'Chihauhua');
-              },
+                    location: 'Chihauhua')
+              ],
             ),
           ),
         )
