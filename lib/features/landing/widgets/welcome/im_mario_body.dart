@@ -160,7 +160,7 @@ class _ImMarioTejadaBodyState extends State<ImMarioTejadaBody>
                                         .appIconsTheme
                                         .iconButtonStyle,
                                     icon: const Icon(Icons.android, size: 40)),
-                                alignment: PlaceholderAlignment.bottom)
+                                alignment: PlaceholderAlignment.bottom),
                           ]),
                     ),
                   ),

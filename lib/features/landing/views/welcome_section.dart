@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:my_resume_app/core/responsive/responsive_layout.dart';
+import 'package:my_resume_app/features/landing/widgets/made_with_flutter_banner.dart';
 import 'package:my_resume_app/features/landing/widgets/welcome/im_mario_body.dart';
 import 'package:my_resume_app/features/landing/widgets/welcome/social_media_icon_list.dart';
 
@@ -30,13 +31,21 @@ class _WelcomeSectionState extends State<WelcomeSection> {
                   textAlign: TextAlign.center,
                   '“Code never lies, comments sometimes do.”\n-Ron Jeffries'),
               Center(child: SocialMediaIconList()),
+              MadeWithFlutterBanner()
             ],
           ),
           childDesktop: Flex(
             direction: Axis.horizontal,
             children: [
               Expanded(
-                child: Center(child: SocialMediaIconList()),
+                child: Center(
+                    child: Column(
+                  children: [
+                    SocialMediaIconList(),
+                    Gap(10),
+                    MadeWithFlutterBanner()
+                  ],
+                )),
               ),
               Expanded(
                   child: Text(
