@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:my_resume_app/core/responsive/responsive_layout.dart';
-import 'package:my_resume_app/core/widgets/app_bar/sliver_app_bar.dart';
+import 'package:my_resume_app/core/theme/extensions/theme_data_extensions.dart';
 import 'package:my_resume_app/core/widgets/link_button.dart';
 import 'package:my_resume_app/features/theme_changer/presentation/bloc/theme_changer_bloc.dart';
 
@@ -46,53 +46,52 @@ class _AppBarContentState extends State<AppBarContent> {
               icon: const Icon(Icons.menu)),
         ),
       ),
-      childDesktop: SliverPersistentHeader(
-        delegate: SliverAppBarDelegate(
-          maxHeight: kToolbarHeight,
-          minHeight: 80,
-          child: Material(
-            elevation: 1,
-            child: Row(
-              children: [
-                ...items
-                    .map((e) => LinkButton(
-                          isSelected:
-                              widget.currentPage.toInt() == e.keySection.value,
-                          onCallback: () {
-                            widget.pageController.animateToPage(
-                                e.keySection.value,
-                                duration: const Duration(milliseconds: 500),
-                                curve: Curves.decelerate);
-                          },
-                          text: e.name,
-                          style: const TextStyle(
-                            fontSize: 20,
-                          ),
-                        ))
-                    .toList(),
-                BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
-                  builder: (context, state) {
-                    return Switch(
-                        value: state.stateEnum == ThemeChangetStateEnum.day,
-                        onChanged: (value) {
-                          setState(() {
-                            isDay = value;
-                          });
-                          if (value) {
-                            context
-                                .read<ThemeChangerBloc>()
-                                .add(ThemeToDayEvent());
-                          } else {
-                            context
-                                .read<ThemeChangerBloc>()
-                                .add(ThemeToNightEvent());
-                          }
-                        });
-                  },
-                ),
-              ],
+      childDesktop: SliverAppBar(
+        automaticallyImplyLeading: false,
+        elevation: 2,
+        forceElevated: true,
+        floating: true,
+        snap: true,
+        title: Row(
+          children: [
+            ...items
+                .map((e) => LinkButton(
+                      isSelected:
+                          widget.currentPage.toInt() == e.keySection.value,
+                      onCallback: () {
+                        widget.pageController.animateToPage(e.keySection.value,
+                            duration: const Duration(milliseconds: 500),
+                            curve: Curves.decelerate);
+                      },
+                      text: e.name,
+                      style: const TextStyle(
+                        fontSize: 20,
+                      ),
+                    ))
+                .toList(),
+            Text(
+              'Theme mode',
+              style: Theme.of(context).appTextsTheme.textStyle,
             ),
-          ),
+            BlocBuilder<ThemeChangerBloc, ThemeChangerState>(
+              builder: (context, state) {
+                return Switch(
+                    value: state.stateEnum == ThemeChangetStateEnum.day,
+                    onChanged: (value) {
+                      setState(() {
+                        isDay = value;
+                      });
+                      if (value) {
+                        context.read<ThemeChangerBloc>().add(ThemeToDayEvent());
+                      } else {
+                        context
+                            .read<ThemeChangerBloc>()
+                            .add(ThemeToNightEvent());
+                      }
+                    });
+              },
+            ),
+          ],
         ),
       ),
     );
